@@ -83,7 +83,7 @@ PHP;
     /**
      * {@inheritDoc}
      */
-    public function activate(Composer $composer, IOInterface $io) : void
+    public function activate(Composer $composer, IOInterface $io) 
     {
         // Nothing to do here, as all features are provided through event listeners
     }
@@ -103,7 +103,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    public static function dumpVersionsClass(Event $composerEvent) : void
+    public static function dumpVersionsClass(Event $composerEvent)
     {
         $composer    = $composerEvent->getComposer();
         $rootPackage = $composer->getPackage();
@@ -136,7 +136,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function writeVersionClassToFile(string $versionClassSource, Composer $composer, IOInterface $io) : void
+    private static function writeVersionClassToFile(string $versionClassSource, Composer $composer, IOInterface $io)
     {
         $installPath = self::locateRootPackageInstallPath($composer->getConfig(), $composer->getPackage())
             . '/src/PackageVersions/Versions.php';
