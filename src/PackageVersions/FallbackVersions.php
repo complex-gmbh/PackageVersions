@@ -26,7 +26,7 @@ use function sprintf;
  */
 final class FallbackVersions
 {
-    public const ROOT_PACKAGE_NAME = 'unknown/root-package@UNKNOWN';
+    const ROOT_PACKAGE_NAME = 'unknown/root-package@UNKNOWN';
 
     private function __construct()
     {

@@ -47,7 +47,7 @@ namespace PackageVersions;
  */
 %s
 {
-    public const ROOT_PACKAGE_NAME = '%s';
+    const ROOT_PACKAGE_NAME = '%s';
     /**
      * Array of all available composer packages.
      * Dont read this array from your calling code, but use the \PackageVersions\Versions::getVersion() method instead.
@@ -55,7 +55,7 @@ namespace PackageVersions;
      * @var array<string, string>
      * @internal
      */
-    public const VERSIONS          = %s;
+    const VERSIONS          = %s;
 
     private function __construct()
     {
@@ -83,7 +83,7 @@ PHP;
     /**
      * {@inheritDoc}
      */
-    public function activate(Composer $composer, IOInterface $io) : void
+    public function activate(Composer $composer, IOInterface $io) 
     {
         // Nothing to do here, as all features are provided through event listeners
     }
@@ -103,7 +103,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    public static function dumpVersionsClass(Event $composerEvent) : void
+    public static function dumpVersionsClass(Event $composerEvent)
     {
         $composer    = $composerEvent->getComposer();
         $rootPackage = $composer->getPackage();
@@ -136,7 +136,7 @@ PHP;
     /**
      * @throws RuntimeException
      */
-    private static function writeVersionClassToFile(string $versionClassSource, Composer $composer, IOInterface $io) : void
+    private static function writeVersionClassToFile(string $versionClassSource, Composer $composer, IOInterface $io)
     {
         $installPath = self::locateRootPackageInstallPath($composer->getConfig(), $composer->getPackage())
             . '/src/PackageVersions/Versions.php';
