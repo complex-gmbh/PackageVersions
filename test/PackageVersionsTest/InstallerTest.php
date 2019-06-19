@@ -66,7 +66,7 @@ final class InstallerTest extends TestCase
      *
      * @throws Exception
      */
-    protected function setUp() : void
+    protected function setUp() 
     {
         parent::setUp();
 
@@ -78,7 +78,7 @@ final class InstallerTest extends TestCase
         $this->composer->expects(self::any())->method('getEventDispatcher')->willReturn($this->eventDispatcher);
     }
 
-    public function testGetSubscribedEvents() : void
+    public function testGetSubscribedEvents() 
     {
         $events = Installer::getSubscribedEvents();
 
@@ -94,7 +94,7 @@ final class InstallerTest extends TestCase
         }
     }
 
-    public function testDumpVersionsClassIfExistingFileIsNotWritable() : void
+    public function testDumpVersionsClassIfExistingFileIsNotWritable() 
     {
         $config            = $this->createMock(Config::class);
         $locker            = $this->createMock(Locker::class);
@@ -145,7 +145,7 @@ final class InstallerTest extends TestCase
         $this->rmDir($vendorDir);
     }
 
-    public function testDumpVersionsClass() : void
+    public function testDumpVersionsClass() 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -265,7 +265,7 @@ PHP;
         $this->rmDir($vendorDir);
     }
 
-    public function testDumpVersionsClassNoDev() : void
+    public function testDumpVersionsClassNoDev() 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -382,7 +382,7 @@ PHP;
      *
      * @group #12
      */
-    public function testDumpVersionsWithoutPackageSourceDetails() : void
+    public function testDumpVersionsWithoutPackageSourceDetails() 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -498,7 +498,7 @@ PHP;
      *
      * @dataProvider rootPackageProvider
      */
-    public function testDumpsVersionsClassToSpecificLocation(RootPackageInterface $rootPackage, bool $inVendor) : void
+    public function testDumpsVersionsClassToSpecificLocation(RootPackageInterface $rootPackage, bool $inVendor) 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -601,7 +601,7 @@ PHP;
         ];
     }
 
-    public function testVersionsAreNotDumpedIfPackageVersionsNotExplicitlyRequired() : void
+    public function testVersionsAreNotDumpedIfPackageVersionsNotExplicitlyRequired() 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -664,7 +664,7 @@ PHP;
      * @group #41
      * @group #46
      */
-    public function testVersionsAreNotDumpedIfPackageIsScheduledForRemoval() : void
+    public function testVersionsAreNotDumpedIfPackageIsScheduledForRemoval() 
     {
         $config  = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker  = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
@@ -703,7 +703,7 @@ PHP;
         self::assertFileNotExists($expectedPath . '/Versions.php');
     }
 
-    public function testGeneratedVersionFileAccessRights() : void
+    public function testGeneratedVersionFileAccessRights() 
     {
         if (strpos(PHP_OS, 'WIN') === 0) {
             $this->markTestSkipped('Windows is kinda "meh" at file access levels');
@@ -764,7 +764,7 @@ PHP;
         $this->rmDir($vendorDir);
     }
 
-    private function rmDir(string $directory) : void
+    private function rmDir(string $directory) 
     {
         if (! is_dir($directory)) {
             unlink($directory);
@@ -773,7 +773,7 @@ PHP;
         }
 
         array_map(
-            function ($item) use ($directory) : void {
+            function ($item) use ($directory)  {
                 $this->rmDir($directory . '/' . $item);
             },
             array_filter(
@@ -790,7 +790,7 @@ PHP;
     /**
      * @group composer/composer#5237
      */
-    public function testWillEscapeRegexParsingOfClassDefinitions() : void
+    public function testWillEscapeRegexParsingOfClassDefinitions() 
     {
         self::assertSame(
             1,
@@ -801,7 +801,7 @@ PHP;
         );
     }
 
-    public function testGetVersionsIsNotNormalizedForRootPackage() : void
+    public function testGetVersionsIsNotNormalizedForRootPackage() 
     {
         $config            = $this->getMockBuilder(Config::class)->disableOriginalConstructor()->getMock();
         $locker            = $this->getMockBuilder(Locker::class)->disableOriginalConstructor()->getMock();
