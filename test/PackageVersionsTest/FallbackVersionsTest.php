@@ -21,7 +21,7 @@ use function uniqid;
  */
 final class FallbackVersionsTest extends TestCase
 {
-    public function testWillFailWithoutValidComposerLockLocation() : void
+    public function testWillFailWithoutValidComposerLockLocation() 
     {
         rename(__DIR__ . '/../../composer.lock', __DIR__ . '/../../composer.lock.backup');
 
@@ -46,7 +46,7 @@ final class FallbackVersionsTest extends TestCase
         }
     }
 
-    public function testValidVersions() : void
+    public function testValidVersions() 
     {
         $lockData = json_decode(file_get_contents(__DIR__ . '/../../composer.lock'), true);
 
@@ -62,7 +62,7 @@ final class FallbackVersionsTest extends TestCase
         }
     }
 
-    public function testInvalidVersionsAreRejected() : void
+    public function testInvalidVersionsAreRejected() 
     {
         $this->expectException(OutOfBoundsException::class);
 

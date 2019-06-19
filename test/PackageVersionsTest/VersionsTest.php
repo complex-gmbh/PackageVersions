@@ -19,7 +19,7 @@ use function uniqid;
  */
 final class VersionsTest extends TestCase
 {
-    public function testValidVersions() : void
+    public function testValidVersions() 
     {
         $lockData = json_decode(file_get_contents(__DIR__ . '/../../composer.lock'), true);
 
@@ -35,7 +35,7 @@ final class VersionsTest extends TestCase
         }
     }
 
-    public function testInvalidVersionsAreRejected() : void
+    public function testInvalidVersionsAreRejected() 
     {
         $this->expectException(OutOfBoundsException::class);
 

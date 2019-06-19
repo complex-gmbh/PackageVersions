@@ -50,7 +50,7 @@ class E2EInstallerTest extends TestCase
     /** @var string */
     private $tempArtifact;
 
-    public function setUp() : void
+    public function setUp()
     {
         $this->tempGlobalComposerHome = sys_get_temp_dir() . '/' . uniqid('InstallerTest', true) . '/global';
         $this->tempLocalComposerHome  = sys_get_temp_dir() . '/' . uniqid('InstallerTest', true) . '/local';
@@ -62,7 +62,7 @@ class E2EInstallerTest extends TestCase
         putenv('COMPOSER_HOME=' . $this->tempGlobalComposerHome);
     }
 
-    public function tearDown() : void
+    public function tearDown()
     {
         $this->rmDir($this->tempGlobalComposerHome);
         $this->rmDir($this->tempLocalComposerHome);
@@ -71,7 +71,7 @@ class E2EInstallerTest extends TestCase
         putenv('COMPOSER_HOME');
     }
 
-    public function testGloballyInstalledPluginDoesNotGenerateVersionsForLocalProject() : void
+    public function testGloballyInstalledPluginDoesNotGenerateVersionsForLocalProject()
     {
         $this->createPackageVersionsArtifact();
 
@@ -114,7 +114,7 @@ class E2EInstallerTest extends TestCase
         );
     }
 
-    public function testRemovingPluginDoesNotAttemptToGenerateVersions() : void
+    public function testRemovingPluginDoesNotAttemptToGenerateVersions()
     {
         $this->createPackageVersionsArtifact();
         $this->createArtifact();
@@ -153,7 +153,7 @@ class E2EInstallerTest extends TestCase
      * @group #41
      * @group #46
      */
-    public function testRemovingPluginWithNoDevDoesNotAttemptToGenerateVersions() : void
+    public function testRemovingPluginWithNoDevDoesNotAttemptToGenerateVersions() 
     {
         $this->createPackageVersionsArtifact();
         $this->createArtifact();
@@ -185,7 +185,7 @@ class E2EInstallerTest extends TestCase
         );
     }
 
-    private function createPackageVersionsArtifact() : void
+    private function createPackageVersionsArtifact()
     {
         $zip = new ZipArchive();
 
@@ -226,7 +226,7 @@ class E2EInstallerTest extends TestCase
         $zip->close();
     }
 
-    private function createArtifact() : void
+    private function createArtifact() 
     {
         $zip = new ZipArchive();
 
@@ -247,7 +247,7 @@ class E2EInstallerTest extends TestCase
     /**
      * @param mixed[] $config
      */
-    private function writeComposerJsonFile(array $config, string $directory) : void
+    private function writeComposerJsonFile(array $config, string $directory) 
     {
         file_put_contents(
             $directory . '/composer.json',
@@ -269,7 +269,7 @@ class E2EInstallerTest extends TestCase
         return $output;
     }
 
-    private function rmDir(string $directory) : void
+    private function rmDir(string $directory) 
     {
         if (! is_dir($directory)) {
             unlink($directory);
@@ -278,7 +278,7 @@ class E2EInstallerTest extends TestCase
         }
 
         array_map(
-            function ($item) use ($directory) : void {
+            function ($item) use ($directory)  {
                 $this->rmDir($directory . '/' . $item);
             },
             array_filter(
