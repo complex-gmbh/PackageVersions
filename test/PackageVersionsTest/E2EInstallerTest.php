@@ -50,7 +50,7 @@ class E2EInstallerTest extends TestCase
     /** @var string */
     private $tempArtifact;
 
-    public function setUp() : void
+    public function setUp()
     {
         $this->tempGlobalComposerHome = sys_get_temp_dir() . '/' . uniqid('InstallerTest', true) . '/global';
         $this->tempLocalComposerHome  = sys_get_temp_dir() . '/' . uniqid('InstallerTest', true) . '/local';
@@ -62,7 +62,7 @@ class E2EInstallerTest extends TestCase
         putenv('COMPOSER_HOME=' . $this->tempGlobalComposerHome);
     }
 
-    public function tearDown() : void
+    public function tearDown()
     {
         $this->rmDir($this->tempGlobalComposerHome);
         $this->rmDir($this->tempLocalComposerHome);
@@ -71,14 +71,14 @@ class E2EInstallerTest extends TestCase
         putenv('COMPOSER_HOME');
     }
 
-    public function testGloballyInstalledPluginDoesNotGenerateVersionsForLocalProject() : void
+    public function testGloballyInstalledPluginDoesNotGenerateVersionsForLocalProject()
     {
         $this->createPackageVersionsArtifact();
 
         $this->writeComposerJsonFile(
             [
                 'name'         => 'package-versions/e2e-global',
-                'require'      => ['ocramius/package-versions' => '1.0.0'],
+                'require'      => ['complex/package-versions' => '1.0.0'],
                 'repositories' => [
                     ['packagist' => false],
                     [
@@ -110,11 +110,11 @@ class E2EInstallerTest extends TestCase
 
         $this->execComposerInDir('update', $this->tempLocalComposerHome);
         $this->assertFileNotExists(
-            $this->tempLocalComposerHome . '/vendor/ocramius/package-versions/src/PackageVersions/Versions.php'
+            $this->tempLocalComposerHome . '/vendor/complex/package-versions/src/PackageVersions/Versions.php'
         );
     }
 
-    public function testRemovingPluginDoesNotAttemptToGenerateVersions() : void
+    public function testRemovingPluginDoesNotAttemptToGenerateVersions()
     {
         $this->createPackageVersionsArtifact();
         $this->createArtifact();
@@ -124,7 +124,7 @@ class E2EInstallerTest extends TestCase
                 'name'         => 'package-versions/e2e-local',
                 'require'      => [
                     'test/package' => '2.0.0',
-                    'ocramius/package-versions' => '1.0.0',
+                    'complex/package-versions' => '1.0.0',
                 ],
                 'repositories' => [
                     ['packagist' => false],
@@ -139,13 +139,13 @@ class E2EInstallerTest extends TestCase
 
         $this->execComposerInDir('update', $this->tempLocalComposerHome);
         $this->assertFileExists(
-            $this->tempLocalComposerHome . '/vendor/ocramius/package-versions/src/PackageVersions/Versions.php'
+            $this->tempLocalComposerHome . '/vendor/complex/package-versions/src/PackageVersions/Versions.php'
         );
 
-        $this->execComposerInDir('remove ocramius/package-versions', $this->tempLocalComposerHome);
+        $this->execComposerInDir('remove complex/package-versions', $this->tempLocalComposerHome);
 
         $this->assertFileNotExists(
-            $this->tempLocalComposerHome . '/vendor/ocramius/package-versions/src/PackageVersions/Versions.php'
+            $this->tempLocalComposerHome . '/vendor/complex/package-versions/src/PackageVersions/Versions.php'
         );
     }
 
@@ -153,7 +153,7 @@ class E2EInstallerTest extends TestCase
      * @group #41
      * @group #46
      */
-    public function testRemovingPluginWithNoDevDoesNotAttemptToGenerateVersions() : void
+    public function testRemovingPluginWithNoDevDoesNotAttemptToGenerateVersions() 
     {
         $this->createPackageVersionsArtifact();
         $this->createArtifact();
@@ -161,7 +161,7 @@ class E2EInstallerTest extends TestCase
         $this->writeComposerJsonFile(
             [
                 'name'         => 'package-versions/e2e-local',
-                'require-dev'      => ['ocramius/package-versions' => '1.0.0'],
+                'require-dev'      => ['complex/package-versions' => '1.0.0'],
                 'repositories' => [
                     ['packagist' => false],
                     [
@@ -175,17 +175,17 @@ class E2EInstallerTest extends TestCase
 
         $this->execComposerInDir('update', $this->tempLocalComposerHome);
         $this->assertFileExists(
-            $this->tempLocalComposerHome . '/vendor/ocramius/package-versions/src/PackageVersions/Versions.php'
+            $this->tempLocalComposerHome . '/vendor/complex/package-versions/src/PackageVersions/Versions.php'
         );
 
         $this->execComposerInDir('install --no-dev', $this->tempLocalComposerHome);
 
         $this->assertFileNotExists(
-            $this->tempLocalComposerHome . '/vendor/ocramius/package-versions/src/PackageVersions/Versions.php'
+            $this->tempLocalComposerHome . '/vendor/complex/package-versions/src/PackageVersions/Versions.php'
         );
     }
 
-    private function createPackageVersionsArtifact() : void
+    private function createPackageVersionsArtifact()
     {
         $zip = new ZipArchive();
 
@@ -226,7 +226,7 @@ class E2EInstallerTest extends TestCase
         $zip->close();
     }
 
-    private function createArtifact() : void
+    private function createArtifact() 
     {
         $zip = new ZipArchive();
 
@@ -247,7 +247,7 @@ class E2EInstallerTest extends TestCase
     /**
      * @param mixed[] $config
      */
-    private function writeComposerJsonFile(array $config, string $directory) : void
+    private function writeComposerJsonFile(array $config, string $directory) 
     {
         file_put_contents(
             $directory . '/composer.json',
@@ -269,7 +269,7 @@ class E2EInstallerTest extends TestCase
         return $output;
     }
 
-    private function rmDir(string $directory) : void
+    private function rmDir(string $directory) 
     {
         if (! is_dir($directory)) {
             unlink($directory);
@@ -278,7 +278,7 @@ class E2EInstallerTest extends TestCase
         }
 
         array_map(
-            function ($item) use ($directory) : void {
+            function ($item) use ($directory)  {
                 $this->rmDir($directory . '/' . $item);
             },
             array_filter(
